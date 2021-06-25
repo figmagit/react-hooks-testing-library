@@ -19,23 +19,29 @@
 
 <hr />
 
-<!-- prettier-ignore-start -->
-[![Build Status](https://img.shields.io/github/workflow/status/testing-library/react-hooks-testing-library/validate?logo=github&style=flat-square)](https://github.com/testing-library/react-hooks-testing-library/actions?query=workflow%3Avalidate)
-[![codecov](https://img.shields.io/codecov/c/github/testing-library/react-hooks-testing-library.svg?style=flat-square)](https://codecov.io/gh/testing-library/react-hooks-testing-library)
-[![version](https://img.shields.io/npm/v/@testing-library/react-hooks.svg?style=flat-square)](https://www.npmjs.com/package/@testing-library/react-hooks)
-[![downloads](https://img.shields.io/npm/dm/@testing-library/react-hooks.svg?style=flat-square)](http://www.npmtrends.com/@testing-library/react-hooks)
-[![MIT License](https://img.shields.io/npm/l/@testing-library/react-hooks.svg?style=flat-square)](https://github.com/testing-library/react-hooks-testing-library/blob/main/LICENSE.md)
+## Why did we fork this?
 
-[![All Contributors](https://img.shields.io/github/all-contributors/testing-library/react-hooks-testing-library?color=orange&style=flat-square)](#contributors)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](https://github.com/testing-library/react-hooks-testing-library/blob/main/CODE_OF_CONDUCT.md)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9a8f27a5-df38-4910-a248-4908b1ba29a7/deploy-status)](https://app.netlify.com/sites/react-hooks-testing-library/deploys)
-[![Discord](https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square)](https://discord.gg/testing-library)
+The built version of this library that is downloaded when you run
+`npm install @testing-library/react-hooks` contains a few features that are not supported by
+`figbuild`. **This forked version makes the following changes:**
 
-[![Watch on GitHub](https://img.shields.io/github/watchers/testing-library/react-hooks-testing-library.svg?style=social)](https://github.com/testing-library/react-hooks-testing-library/watchers)
-[![Star on GitHub](https://img.shields.io/github/stars/testing-library/react-hooks-testing-library.svg?style=social)](https://github.com/testing-library/react-hooks-testing-library/stargazers)
-[![Tweet](https://img.shields.io/twitter/url/https/github.com/testing-library/react-hooks-testing-library.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20react-hooks-testing-library%20by%20%40testing-library%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Freact-hooks-testing-library%20%F0%9F%91%8D)
-<!-- prettier-ignore-end -->
+- Output code that `figbuild` is set up to process. This was accomplished by adding a
+  `.browserslistrc` file that lists IE 11 as a supported browser. While we don't actually support IE
+  11, this does mean the build won't try to use any fancy new language features.
+- Build with the `--bundle` option. This causes the build script to use Rollup to generate a single
+  script file, instead of separate ES6 modules. This is also required to make the build script care
+  about the `.browserslistrc` file.
+- Update the `main` and `types` fields of `package.json`. The `--bundle` option places the built
+  file in a different location, under `dist` and with a new filename.
+- Update `tsconfig.json` to use an `ES5` target. I'm not sure if this does anything, since we're
+  using Babel to build, not Typescript. But whatever, it can't hurt.
+- Remove "smart" dynamic `require` logic to
+  [choose a renderer](https://react-hooks-testing-library.com/installation#renderer). `figbuild`
+  does not support dynamic `require` statements. I also deleted tests for this logic.
+- Remove submodules structure. Since we're no longer doing dynamic requires, we also don't need to
+  output `@testing-library/react-hooks/dom` and similar directories.
+
+If and when we move off of `figbuild`, we may be able to un-fork this library.
 
 ## Table of Contents
 

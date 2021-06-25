@@ -1,9 +1,9 @@
 {
-  "name": "@testing-library/react-hooks",
+  "name": "@figma/testing-library-react-hooks",
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete React hooks testing utilities that encourage good testing practices.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/@figma/testing-library-react-hooks.cjs.js",
+  "types": "dist/index.d.ts",
   "engines": {
     "node": ">=12"
   },
@@ -15,6 +15,7 @@
     "integration"
   ],
   "files": [
+    "dist",
     "lib",
     "src",
     "dom",
@@ -27,15 +28,14 @@
   "author": "Michael Peyper <mpeyper7@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/testing-library/react-hooks-testing-library.git"
+    "url": "https://github.com/figma/react-hooks-testing-library.git"
   },
   "license": "MIT",
   "scripts": {
     "setup": "npm install && npm run validate -s",
     "validate": "kcd-scripts validate",
     "prepare": "npm run build",
-    "build": "kcd-scripts build --out-dir lib && npm run generate:submodules",
-    "generate:submodules": "ts-node scripts/generate-submodules.ts",
+    "build": "kcd-scripts build --bundle",
     "test": "kcd-scripts test",
     "typecheck": "kcd-scripts typecheck",
     "lint": "kcd-scripts lint",
