@@ -19,6 +19,12 @@
 
 <hr />
 
+## Deprecation
+
+Since we updated our build process to use `esbuild`, we no longer need this repo. We are now using
+the regular version of `@testing-library/react-hooks`. I'll keep this version around just to make
+sure things work, but it can now be safely deleted.
+
 ## Why did we fork this?
 
 The built version of this library that is downloaded when you run
